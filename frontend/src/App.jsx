@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { obtenerNotas, crearNota } from "./services/notaService";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [notas, setNotas] = useState([]);
+  const [titulo, setTitulo] = useState("");
+  const [contenido, setContenido] = useState("");
+
+  useEffect(() => {
+    cargarNotas();
+  }, []);
+
+  const cargarNotas = async () => {
+    try {
+      const data = await obtenerNotas();
+      setNotas(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCrear = async () => {
+    if (!titulo || !contenido) return;
+
+    try {
+      const nuevaNota = await crearNota({ titulo, contenido });
+      setNotas([...notas, nuevaNota]);
+      setTitulo("");
+      setContenido("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <h1>Mis Notas</h1>
+
+      <div className="form">
+        <input
+          type="text"
+          placeholder="Título"
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
+        />
+
+        <textarea
+          placeholder="Contenido"
+          value={contenido}
+          onChange={(e) => setContenido(e.target.value)}
+        />
+
+        <button onClick={handleCrear}>Crear Nota</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div className="lista">
+        {notas.map((nota) => (
+          <div key={nota.id} className="nota">
+            <h3>{nota.titulo}</h3>
+            <p>{nota.contenido}</p>
+          </div>
+        ))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;

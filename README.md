@@ -1,10 +1,11 @@
 # Web-de-Notas
 
-Proyecto de notas basico, las tecnologias usadas son:
+Proyecto de una web de notas, se trabajo con las sigueintes tecnologias:
 
-Java version 21
-Spring boot 3.4 o algo asi
-MySQL 9.6.2 
+Java version 21.0.10
 
-La configuracion de spring es webMVC, no es la mejor para web porque me confundi. lo mejor seria web Startet pack.
+Spring Boot 4.0.3 -> Starteer webMVC pack
 
+MySQL 9.6.0 -> Todo consola
+
+Node Js -> React (libreria) -> JavaScrip (estilo)
