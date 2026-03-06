@@ -9,3 +9,7 @@ Spring Boot 4.0.3 -> Starteer webMVC pack
 MySQL 9.6.0 -> Todo consola
 
 Node Js -> React (libreria) -> JavaScrip (estilo)
+
+Para ejecutar el BackEnd mvnw spring-boot:run 
+
+Para ejecutar el frontend npm run dev
